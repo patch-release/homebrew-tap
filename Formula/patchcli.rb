@@ -7,10 +7,10 @@
 # and bumps `url` + `sha256` here.
 class Patchcli < Formula
   desc "OTA code updates for native Swift iOS apps — auto-partitioning engine"
-  homepage "https://patch.dev"
-  url "https://storage.googleapis.com/patch-cli-dist/patchcli-1.0.4-macos.tar.gz"
-  version "1.0.4"
-  sha256 "fd8e137f7dc6086186b2135549dab19306da974d138ffc225a287ec68db21436"
+  homepage "https://patchrelease.com"
+  url "https://storage.googleapis.com/patch-cli-dist/patchcli-1.1.0-macos.tar.gz"
+  version "1.1.0"
+  sha256 "5e94b580e976a25db47ce50b443b878b15cbf74926a3d97b0f2c7317a859624e"
   license "MIT"
 
   # The engine shells out to `wasm-merge` / `wasm-opt` (Binaryen) during
@@ -24,24 +24,20 @@ class Patchcli < Formula
 
   def caveats
     <<~EOS
-      The Patch CLI is installed as `patchcli`.
+      Get started:
 
-      `patchcli build` / `patchcli release` additionally compile Swift to WebAssembly,
-      which requires the swift.org toolchain + the WebAssembly SDK. That is NOT
-      installable via Homebrew. Install it with swiftly:
+        patchcli setup    # one-time: installs the Swift→WebAssembly toolchain
+        patchcli init     # in your app directory: registers the app, adds the
+                          # PatchSDK package, and wires up the startup code
 
-        curl -L https://swiftlang.github.io/swiftly/install.sh | bash
-        swiftly install latest
-        # then install the WebAssembly SDK matching your Swift toolchain version
-        # (see https://www.swift.org/documentation/articles/wasm-getting-started.html)
-
-      Commands that do not compile WASM (init, status, channels, rollback,
-      whoami, fingerprint) work without it.
+      `patchcli setup` is only needed for commands that compile Swift to
+      WebAssembly (build / release). Everything else (init, status, channels,
+      rollback, whoami, fingerprint) works without it.
     EOS
   end
 
   test do
-    assert_match "1.0.4", shell_output("#{bin}/patchcli --version")
+    assert_match "1.1.0", shell_output("#{bin}/patchcli --version")
     assert_match "USAGE", shell_output("#{bin}/patchcli --help")
   end
 end
