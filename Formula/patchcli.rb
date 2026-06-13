@@ -8,9 +8,9 @@
 class Patchcli < Formula
   desc "OTA code updates for native Swift iOS apps — auto-partitioning engine"
   homepage "https://patchrelease.com"
-  url "https://storage.googleapis.com/patch-cli-dist/patchcli-1.2.0-macos.tar.gz"
-  version "1.2.0"
-  sha256 "d8d41a323f92ac406fcba0320696267b6f87cd1fb506f9cef17ad31fd786759f"
+  url "https://storage.googleapis.com/patch-cli-dist/patchcli-1.2.1-macos.tar.gz"
+  version "1.2.1"
+  sha256 "dc0b1ea5de25c17e1f5afdd86872e5fb0adc4d22b04fd4016e9eef5c9adb6b4d"
   license "MIT"
 
   # The engine shells out to `wasm-merge` / `wasm-opt` (Binaryen) during
@@ -19,7 +19,19 @@ class Patchcli < Formula
   depends_on :macos
 
   def install
-    bin.install "patchcli"
+    # The binary loads CodeGenerator's GuestIR templates at runtime via
+    # `Bundle.module`, which resolves relative to the LAUNCHED executable's
+    # directory. A plain Homebrew bin symlink would resolve to the symlink's
+    # dir (where the bundle is not), so install both into libexec and put a thin
+    # exec-wrapper in bin — the wrapper execs the real path, so `Bundle.module`
+    # finds `Patch_CodeGenerator.bundle` sitting next to it. Without this, every
+    # `patchcli build` / `release` fatals with "unable to find bundle named
+    # Patch_CodeGenerator".
+    libexec.install "patchcli", "Patch_CodeGenerator.bundle"
+    (bin/"patchcli").write <<~SH
+      #!/bin/bash
+      exec "#{libexec}/patchcli" "$@"
+    SH
   end
 
   def caveats
@@ -37,7 +49,7 @@ class Patchcli < Formula
   end
 
   test do
-    assert_match "1.2.0", shell_output("#{bin}/patchcli --version")
+    assert_match "1.2.1", shell_output("#{bin}/patchcli --version")
     assert_match "USAGE", shell_output("#{bin}/patchcli --help")
   end
 end
