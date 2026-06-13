@@ -10,7 +10,7 @@ class Patchcli < Formula
   homepage "https://patchrelease.com"
   url "https://storage.googleapis.com/patch-cli-dist/patchcli-1.2.1-macos.tar.gz"
   version "1.2.1"
-  sha256 "dc0b1ea5de25c17e1f5afdd86872e5fb0adc4d22b04fd4016e9eef5c9adb6b4d"
+  sha256 "732da36e2741d4fe4917fcc399ae04cdd00d97c5ccbfb2530de02ab0cd9938ce"
   license "MIT"
 
   # The engine shells out to `wasm-merge` / `wasm-opt` (Binaryen) during
