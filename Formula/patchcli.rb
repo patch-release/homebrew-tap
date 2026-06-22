@@ -8,9 +8,9 @@
 class Patchcli < Formula
   desc "OTA code updates for native Swift iOS apps — auto-partitioning engine"
   homepage "https://patchrelease.com"
-  url "https://storage.googleapis.com/patch-cli-dist/patchcli-1.6.30-macos.tar.gz"
-  version "1.6.30"
-  sha256 "fad2ce316ed71498d669e8d99a6b56330641fa85b4254ccbe46de38fa6c2e27a"
+  url "https://storage.googleapis.com/patch-cli-dist/patchcli-1.6.31-macos.tar.gz"
+  version "1.6.31"
+  sha256 "7b3fa0837ed57ee6e98d8cfe2543758fe8fb8278854f73e85fa5e87cfd212b85"
   license "MIT"
 
   # The engine shells out to `wasm-merge` / `wasm-opt` (Binaryen) during
@@ -49,7 +49,7 @@ class Patchcli < Formula
   end
 
   test do
-    assert_match "1.6.30", shell_output("#{bin}/patchcli --version")
+    assert_match "1.6.31", shell_output("#{bin}/patchcli --version")
     assert_match "USAGE", shell_output("#{bin}/patchcli --help")
   end
 end
