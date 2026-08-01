@@ -11,7 +11,9 @@ class Patchcli < Formula
   url "https://storage.googleapis.com/patch-cli-dist/patchcli-1.6.48-macos.tar.gz"
   version "1.6.48"
   sha256 "8de9d1ff22f44613a56be489f558f074f34f12ebba584405e22a0dd732347366"
-  license "MIT"
+  # The engine is Apache-2.0. (The SDK shipped in the same repository is
+  # MIT — different package, different licence.)
+  license "Apache-2.0"
 
   # The engine shells out to `wasm-merge` / `wasm-opt` (Binaryen) during
   # `patchcli build` / `patchcli release`.
