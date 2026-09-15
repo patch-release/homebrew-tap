@@ -6,7 +6,7 @@
 # tap copy (the tap copy is overwritten by the next release).
 #
 # Installs a pre-built, release, universal (arm64 + x86_64) macOS binary built by
-# CI from the PUBLIC tag patch-release/patch-swift@v1.7.1 and hosted on the
+# CI from the PUBLIC tag patch-release/patch-swift@v1.7.2 and hosted on the
 # public Google Cloud Storage bucket gs://patch-cli-dist.
 #
 # Building from source instead: packaging/patchcli.rb in the monorepo is a
@@ -14,9 +14,9 @@
 class Patchcli < Formula
   desc "OTA code updates for native Swift iOS apps — auto-partitioning engine"
   homepage "https://patchrelease.com"
-  url "https://storage.googleapis.com/patch-cli-dist/patchcli-1.7.1-macos.tar.gz"
-  version "1.7.1"
-  sha256 "acb49cc965441ce0dc427620aecfe2b138f714dd9930b8851c93c717beb66cb6"
+  url "https://storage.googleapis.com/patch-cli-dist/patchcli-1.7.2-macos.tar.gz"
+  version "1.7.2"
+  sha256 "8c7bc7fd0421335aa8bece089068eb162b32723869c7b0b718328744c56a8e7e"
   # The engine is Apache-2.0. (The SDK shipped in the same repository is
   # MIT — different package, different licence.)
   license "Apache-2.0"
@@ -57,7 +57,7 @@ class Patchcli < Formula
   end
 
   test do
-    assert_match "1.7.1", shell_output("#{bin}/patchcli --version")
+    assert_match "1.7.2", shell_output("#{bin}/patchcli --version")
     assert_match "USAGE", shell_output("#{bin}/patchcli --help")
   end
 end
