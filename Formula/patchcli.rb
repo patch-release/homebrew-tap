@@ -1,16 +1,22 @@
-# Homebrew formula for the Patch CLI.
+# patchcli — Homebrew formula for the published tap (patch-release/tap).
 #
-# The Patch engine SOURCE is private; this formula installs a pre-built,
-# release, universal (arm64 + x86_64) macOS binary hosted on a public
-# Google Cloud Storage bucket. New releases are published by the
-# patch-cli release workflow (on a `v*` tag), which uploads the tarball
-# and bumps `url` + `sha256` here.
+# GENERATED FILE. Rendered from packaging/tap-formula.rb.tmpl in the patch
+# monorepo by .github/workflows/cli-release.yml on every cli-v* tag and pushed to
+# patch-release/homebrew-tap as Formula/patchcli.rb — edit the template, not the
+# tap copy (the tap copy is overwritten by the next release).
+#
+# Installs a pre-built, release, universal (arm64 + x86_64) macOS binary built by
+# CI from the PUBLIC tag patch-release/patch-swift@v1.7.1 and hosted on the
+# public Google Cloud Storage bucket gs://patch-cli-dist.
+#
+# Building from source instead: packaging/patchcli.rb in the monorepo is a
+# source-build formula off the same public tag (no credentials, cannot drift).
 class Patchcli < Formula
   desc "OTA code updates for native Swift iOS apps — auto-partitioning engine"
   homepage "https://patchrelease.com"
-  url "https://storage.googleapis.com/patch-cli-dist/patchcli-1.6.48-macos.tar.gz"
-  version "1.6.48"
-  sha256 "8de9d1ff22f44613a56be489f558f074f34f12ebba584405e22a0dd732347366"
+  url "https://storage.googleapis.com/patch-cli-dist/patchcli-1.7.1-macos.tar.gz"
+  version "1.7.1"
+  sha256 "acb49cc965441ce0dc427620aecfe2b138f714dd9930b8851c93c717beb66cb6"
   # The engine is Apache-2.0. (The SDK shipped in the same repository is
   # MIT — different package, different licence.)
   license "Apache-2.0"
@@ -51,7 +57,7 @@ class Patchcli < Formula
   end
 
   test do
-    assert_match "1.6.48", shell_output("#{bin}/patchcli --version")
+    assert_match "1.7.1", shell_output("#{bin}/patchcli --version")
     assert_match "USAGE", shell_output("#{bin}/patchcli --help")
   end
 end
